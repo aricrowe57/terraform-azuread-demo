@@ -128,6 +128,10 @@ resource "kubernetes_deployment" "azure_vote_front" {
 
     min_ready_seconds = 5
   }
+
+  depends_on = [
+    null_resource.push
+  ]
 }
 
 resource "kubernetes_service" "azure_vote_front" {
