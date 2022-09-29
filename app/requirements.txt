@@ -1,0 +1,6 @@
+requests>=2,<3
+msal>=0.6.1,<2
+Flask>=2
+gunicorn
+werkzeug>=2
+flask-session>=0.3.2,<0.5
