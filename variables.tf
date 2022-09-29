@@ -9,3 +9,5 @@ variable "password" {
 variable "demoPrefix" {}
 
 variable "demoRegistryPrefix" {}
+
+variable "environment" {}

@@ -48,6 +48,10 @@ resource "kubernetes_deployment" "helloapp" {
       }
     }
   }
+
+  #depends_on = [
+  #  null_resource.push
+  #]
 }
 
 resource "kubernetes_service" "helloapp" {

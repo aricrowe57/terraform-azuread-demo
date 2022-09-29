@@ -7,7 +7,7 @@ resource "azurerm_resource_group" "default" {
   location = "East US"
 
   tags = {
-    environment = "Demo"
+    environment = "var.environment"
   }
 }
 
@@ -33,7 +33,7 @@ resource "azurerm_kubernetes_cluster" "default" {
   }
 
   tags = {
-    environment = "Demo"
+    environment = "var.environment"
   }
   
 }
@@ -44,6 +44,10 @@ resource "azurerm_container_registry" "acr" {
   resource_group_name = azurerm_resource_group.default.name
   sku                 = "Standard"
   admin_enabled       = true
+
+  tags = {
+    environment = "var.environment"
+  }
 }
 
 resource "azurerm_role_assignment" "cluster_to_registry" {
@@ -76,3 +80,22 @@ resource "azurerm_role_assignment" "cluster_to_registry" {
 #    null_resource.docker_login
 #  ]
 #}
+
+resource "azuread_group" "environment_owners" {
+  display_name     = "demo-environment-owners-${var.environment}"
+  owners           = ["4dab6b68-9d1f-414f-8ede-5f7acd5e9fb0",
+                      "5c102dd0-6f07-475e-9ab9-b58034e46631"]
+  security_enabled = true
+
+  members = [
+    "4dab6b68-9d1f-414f-8ede-5f7acd5e9fb0",
+    "5c102dd0-6f07-475e-9ab9-b58034e46631",
+    "f94cd823-e26f-422c-abaa-a4259a677acd"
+  ]
+}
+
+resource "azurerm_role_assignment" "owners_to_resource_group" {
+  principal_id                     = azuread_group.environment_owners.object_id
+  role_definition_name             = "Contributor"
+  scope                            = azurerm_resource_group.default.id
+}
