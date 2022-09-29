@@ -1,5 +1,10 @@
 provider "azurerm" {
   features {}
+  
+  subscription_id   = "e1fec9f3-3d89-4113-8eaf-d8915babcf59"
+  tenant_id         = "c894abff-2699-4efc-a196-8e1565ec8b93"
+  client_id         = "cfb23b33-17f6-475c-b1b0-f3cfaeb5446a"
+  client_secret     = "${var.terraform_secret}"
 }
 
 resource "azurerm_resource_group" "default" {
@@ -7,7 +12,7 @@ resource "azurerm_resource_group" "default" {
   location = "East US"
 
   tags = {
-    environment = "var.environment"
+    environment = "${var.environment}"
   }
 }
 
@@ -33,7 +38,7 @@ resource "azurerm_kubernetes_cluster" "default" {
   }
 
   tags = {
-    environment = "var.environment"
+    environment = "${var.environment}"
   }
   
 }
@@ -46,7 +51,7 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = true
 
   tags = {
-    environment = "var.environment"
+    environment = "${var.environment}"
   }
 }
 
