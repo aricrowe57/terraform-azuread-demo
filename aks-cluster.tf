@@ -50,30 +50,29 @@ resource "azurerm_role_assignment" "cluster_to_registry" {
   principal_id                     =  azurerm_kubernetes_cluster.default.kubelet_identity[0].object_id
   role_definition_name             = "AcrPull"
   scope                            = azurerm_container_registry.acr.id
-  #scope                           = "/subscriptions/e1fec9f3-3d89-4113-8eaf-d8915babcf59/resourceGroups/arcroweHashicorpDemo/providers/Microsoft.ContainerRegistry/registries/arcroweRegistry"
   skip_service_principal_aad_check = true
 }
 
-resource "null_resource" "docker_build" {
-  provisioner "local-exec" {
-  command = "docker build azure-vote -t ${azurerm_container_registry.acr.login_server}/azure-vote-front:latest"
-  }
-}
+#resource "null_resource" "docker_build" {
+#  provisioner "local-exec" {
+#  command = "docker build app -t ${azurerm_container_registry.acr.login_server}/helloapp:latest"
+#  }
+#}
 
-resource "null_resource" "docker_login" {
-  provisioner "local-exec" {
-  command = "az acr login --name ${azurerm_container_registry.acr.login_server}"
-  }
-  depends_on = [
-    null_resource.docker_build
-  ]
-}
+#resource "null_resource" "docker_login" {
+#  provisioner "local-exec" {
+#  command = "az acr login --name ${azurerm_container_registry.acr.login_server}"
+#  }
+#  depends_on = [
+#    null_resource.docker_build
+#  ]
+#}
 
-resource "null_resource" "push" {
-  provisioner "local-exec" {
-  command = "docker push ${azurerm_container_registry.acr.login_server}/azure-vote-front:latest"
-  }
-  depends_on = [
-    null_resource.docker_login
-  ]
-}
+#resource "null_resource" "push" {
+#  provisioner "local-exec" {
+#  command = "docker push ${azurerm_container_registry.acr.login_server}/helloapp:latest"
+#  }
+#  depends_on = [
+#    null_resource.docker_login
+#  ]
+#}

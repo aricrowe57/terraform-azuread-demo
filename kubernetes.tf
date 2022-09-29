@@ -6,152 +6,70 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.default.kube_config.0.cluster_ca_certificate)
 }
 
-resource "kubernetes_deployment" "azure_vote_back" {
+resource "kubernetes_deployment" "helloapp" {
   metadata {
-    name = "azure-vote-back"
+    name = "helloapp"
   }
 
   spec {
-    replicas = 1
+    replicas = 2
 
     selector {
       match_labels = {
-        app = "azure-vote-back"
+        app = "helloapp"
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "azure-vote-back"
+          app = "helloapp"
         }
       }
 
       spec {
         container {
-          name  = "azure-vote-back"
-          image = "mcr.microsoft.com/oss/bitnami/redis:6.0.8"
+          name  = "helloapp"
+          image = "${azurerm_container_registry.acr.login_server}/helloapp:latest"
 
           port {
-            name           = "redis"
-            container_port = 6379
+            container_port = 8080
           }
 
           env {
-            name  = "ALLOW_EMPTY_PASSWORD"
-            value = "yes"
+            name  = "PORT"
+            value = "8080"
           }
         }
 
-        node_selector = {
-          "beta.kubernetes.io/os" = "linux"
-        }
+        #node_selector = {
+        #  "beta.kubernetes.io/os" = "linux"
+        #}
       }
     }
   }
 }
 
-resource "kubernetes_service" "azure_vote_back" {
+resource "kubernetes_service" "helloapp" {
   metadata {
-    name = "azure-vote-back"
+    name = "helloapp"
   }
 
   spec {
     port {
-      port = 6379
+      port        = 80
+      target_port = 8080
     }
 
     selector = {
-      app = "azure-vote-back"
-    }
-  }
-}
-
-resource "kubernetes_deployment" "azure_vote_front" {
-  metadata {
-    name = "azure-vote-front"
-  }
-
-  spec {
-    replicas = 1
-
-    selector {
-      match_labels = {
-        app = "azure-vote-front"
-      }
-    }
-
-    template {
-      metadata {
-        labels = {
-          app = "azure-vote-front"
-        }
-      }
-
-      spec {
-        container {
-          name  = "azure-vote-front"
-          image = "${azurerm_container_registry.acr.login_server}/azure-vote-front:latest"
-
-          port {
-            container_port = 80
-          }
-
-          env {
-            name  = "REDIS"
-            value = "azure-vote-back"
-          }
-
-          resources {
-            limits = {
-              cpu = "500m"
-            }
-
-            requests = {
-              cpu = "250m"
-            }
-          }
-        }
-
-        node_selector = {
-          "beta.kubernetes.io/os" = "linux"
-        }
-      }
-    }
-
-    strategy {
-      rolling_update {
-        max_unavailable = "1"
-        max_surge       = "1"
-      }
-    }
-
-    min_ready_seconds = 5
-  }
-
-  depends_on = [
-    null_resource.push
-  ]
-}
-
-resource "kubernetes_service" "azure_vote_front" {
-  metadata {
-    name = "azure-vote-front"
-  }
-
-  spec {
-    port {
-      port = 80
-    }
-
-    selector = {
-      app = "azure-vote-front"
+      app = "helloapp"
     }
 
     type = "LoadBalancer"
   }
 }
 
+
 output "lb_ip" {
-  value = kubernetes_service.azure_vote_front.status.0.load_balancer.0.ingress.0.ip
+  value = kubernetes_service.helloapp.status.0.load_balancer.0.ingress.0.ip
 }

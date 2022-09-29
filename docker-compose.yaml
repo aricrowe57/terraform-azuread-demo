@@ -1,0 +1,9 @@
+version: '3'
+services:
+  python-app:
+    image: dannyapp:latest
+    container_name: dannyapp
+    environment:
+      PORT: 8080
+    ports:
+        - "8080:8080"
