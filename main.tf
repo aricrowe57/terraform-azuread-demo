@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "=3.7.0"
     }
+    google = {
+      source = "hashicorp/google"
+      version = "3.61.0"
+    }
   }
     backend "azurerm" {
         resource_group_name  = "terraform-infrastructure"
@@ -36,4 +40,10 @@ resource "azurerm_resource_group" "default" {
   tags = {
     environment = "${var.environment}"
   }
+}
+
+provider "google" {
+  project = "hashiconf-demo-364100"
+  region  = "us-west1"
+  zone    = "us-west1-a"
 }
