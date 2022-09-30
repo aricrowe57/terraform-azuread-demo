@@ -31,6 +31,7 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:latest
+          file: app/Dockerfile
 
   terraform:
     name: 'Terraform'
