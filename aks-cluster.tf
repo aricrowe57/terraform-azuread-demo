@@ -1,4 +1,10 @@
 terraform {
+   required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=3.7.0"
+    }
+  }
     backend "azurerm" {
         resource_group_name  = "terraform-infrastructure"
         storage_account_name = "arcroweterraformstate"
