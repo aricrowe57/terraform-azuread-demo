@@ -15,7 +15,8 @@ provider "azurerm" {
   subscription_id   = "e1fec9f3-3d89-4113-8eaf-d8915babcf59"
   tenant_id         = "c894abff-2699-4efc-a196-8e1565ec8b93"
   client_id         = "cfb23b33-17f6-475c-b1b0-f3cfaeb5446a"
-  client_secret     = "${var.terraform_secret}"
+  use_oidc          = true
+  #client_secret     = "${var.terraform_secret}"
 }
 
 resource "azurerm_resource_group" "default" {
