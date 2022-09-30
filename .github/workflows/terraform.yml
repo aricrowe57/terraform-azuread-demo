@@ -16,6 +16,7 @@ jobs:
   docker:
     name: Build container
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
