@@ -12,4 +12,4 @@ variable "demoRegistryPrefix" {}
 
 variable "environment" {}
 
-variable "terraform_secret" {}
+# variable "terraform_secret" {}
