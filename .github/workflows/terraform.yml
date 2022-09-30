@@ -19,6 +19,7 @@ jobs:
         ARM_SUBSCRIPTION_ID : e1fec9f3-3d89-4113-8eaf-d8915babcf59
         ARM_TENANT_ID : c894abff-2699-4efc-a196-8e1565ec8b93
         ARM_CLIENT_ID : cfb23b33-17f6-475c-b1b0-f3cfaeb5446a
+        ARM_USE_OIDC : true
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
