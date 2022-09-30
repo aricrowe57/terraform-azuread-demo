@@ -1,3 +1,14 @@
+terraform {
+    backend "azurerm" {
+        resource_group_name  = "terraform-infrastructure"
+        storage_account_name = "arcroweterraformstate"
+        container_name       = "tfstate"
+        key                  = "local.terraform.tfstate"
+    }
+
+}
+
+
 provider "azurerm" {
   features {}
   
