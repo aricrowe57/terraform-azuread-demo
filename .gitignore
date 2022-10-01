@@ -1,9 +1,12 @@
 # Local .terraform directories
 **/.terraform/*
+kube-module/**/.terraform/*
 
 # .tfstate files
 *.tfstate
 *.tfstate.*
+kube-module/*.tfstate
+kube-module/*.tfstate.*
 
 # Crash log files
 crash.log

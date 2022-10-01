@@ -12,4 +12,8 @@ variable "demoRegistryPrefix" {}
 
 variable "environment" {}
 
+variable project_id {}
+
+variable region {}
+
 #variable "terraform_secret" {}

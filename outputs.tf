@@ -2,8 +2,28 @@ output "resource_group_name" {
   value = azurerm_resource_group.default.name
 }
 
+#output "kubernetes_cluster_name" {
+#  value = azurerm_kubernetes_cluster.default.name
+#}
+
+output "region" {
+  value       = var.region
+  description = "GCloud Region"
+}
+
+output "project_id" {
+  value       = var.project_id
+  description = "GCloud Project ID"
+}
+
 output "kubernetes_cluster_name" {
-  value = azurerm_kubernetes_cluster.default.name
+  value       = google_container_cluster.default.name
+  description = "GKE Cluster Name"
+}
+
+output "kubernetes_cluster_host" {
+  value       = google_container_cluster.default.endpoint
+  description = "GKE Cluster Host"
 }
 
 # output "host" {

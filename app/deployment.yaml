@@ -24,3 +24,37 @@ spec:
           - name: PORT
             value: "8080"
 ---
+
+resource "kubernetes_ingress_v1" "managed_cert_ingress" {
+  metadata {
+    name = "managed-cert-ingress"
+
+    annotations = {
+      "kubernetes.io/ingress.class" = "gce"
+
+      "kubernetes.io/ingress.global-static-ip-name" = "hashiconf-demo"
+
+      "networking.gke.io/managed-certificates" = "managed-cert"
+    }
+  }
+
+  spec {
+    default_backend {
+      service {
+        name = "helloapp"
+
+        port {
+          number = 80
+        }
+      }
+    }
+  }
+}
+
+resource "google_compute_managed_ssl_certificate" "managed-cert" {
+  name = "managed-cert"
+
+  managed {
+    domains = ["terraform-entra-demo.app"]
+  }
+}
