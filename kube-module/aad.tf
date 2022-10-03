@@ -58,5 +58,5 @@ resource "azuread_application_federated_identity_credential" "fic" {
 
 #data "azuread_group" "dev-group" {
 #  name     = data.terraform_remote_state.state.outputs.kubernetes_cluster_name
-#  location = data.terraform_remote_state.state.outputs.region
+#  location = data.terraform_remote_state.state.outputs.region 
 #}
