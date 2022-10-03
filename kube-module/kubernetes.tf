@@ -58,8 +58,8 @@ resource "kubernetes_deployment" "helloapp" {
       spec {
         container {
           name  = "helloapp"
-          #image = "${data.terraform_remote_state.state.azurerm_container_registry.acr.login_server}/helloapp:latest"
-          image = "arcroweterraformaaddemoregistry.azurecr.io/helloapp:latest"
+          image = "${data.terraform_remote_state.state.outputs.login_server}/helloapp:latest"
+          #image = "arcroweterraformaaddemoregistry.azurecr.io/helloapp:latest"
 
           port {
             container_port = 8080
@@ -68,6 +68,16 @@ resource "kubernetes_deployment" "helloapp" {
           env {
             name  = "PORT"
             value = "8080"
+          }
+
+          env {
+            name = "APP_ID"
+            value = "${azuread_application.app-registration.application_id}"
+          }
+
+          env {
+            name = "CLIENT_SECRET"
+            value = "${azuread_application_password.client-secret.value}"
           }
         }
 
@@ -116,7 +126,8 @@ resource "kubernetes_ingress_v1" "managed_cert_ingress" {
 
       "kubernetes.io/ingress.global-static-ip-name" = "hashiconf-app-address"
 
-      "networking.gke.io/managed-certificates" = "managed-cert"
+      #"networking.gke.io/managed-certificates" = "managed-cert"
+      "ingress.gcp.kubernetes.io/pre-shared-cert"   = google_compute_managed_ssl_certificate.managed-cert.name
     }
   }
 
@@ -143,3 +154,4 @@ resource "google_compute_managed_ssl_certificate" "managed-cert" {
     domains = ["terraform-entra-demo.app"]
   }
 }
+

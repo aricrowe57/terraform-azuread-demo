@@ -1,7 +1,5 @@
 {
-  "authority": "https://login.microsoftonline.com/dlstrockisgmail.onmicrosoft.com",
-  "client_id": "4c8b6674-c8b8-4eff-96dc-c739726001d5",
+  "authority": "https://login.microsoftonline.com/arispaidtesttenant.onmicrosoft.com",
   "scope": [ "https://graph.microsoft.com/.default" ],
-  "secret": "~rt8Q~y1dev_8WUWot-uSMzT5pxo4HX-ogho_anJ",
   "endpoint": "https://graph.microsoft.com/v1.0/users"
 }

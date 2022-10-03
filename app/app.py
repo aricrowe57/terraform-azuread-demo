@@ -22,9 +22,13 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 def hello_world():
 
     result = None
+    #client_id = "4c8b6674-c8b8-4eff-96dc-c739726001d5"
+    #"secret": "~rt8Q~y1dev_8WUWot-uSMzT5pxo4HX-ogho_anJ",
+    client_id = os.environ.get('APP_ID')
+    secret = os.environ.get('CLIENT_SECRET')
     client = msal.ConfidentialClientApplication(
-        config["client_id"], authority=config["authority"],
-        client_credential=config["secret"])
+        client_id, authority=config["authority"],
+        client_credential=secret)
 
     if not request.args.get('code'):
         session["flow"] = client.initiate_auth_code_flow(config["scope"], redirect_uri=url_for("hello_world", _external=True))
@@ -47,7 +51,8 @@ def hello_world():
 
 @app.route('/')
 def health_check():
-    return "healthy!"
+    #return (os.environ.get('APP_ID'))
+    return "healthy  !!"
 
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0',port=int(os.environ.get('PORT', 8080)))

@@ -26,6 +26,16 @@ output "kubernetes_cluster_host" {
   description = "GKE Cluster Host"
 }
 
+output "group_object_id" {
+  value       = azuread_group.environment_owners.object_id
+  description = "ID for the group of developers owning this app"
+}
+
+output "login_server" {
+  value       = azurerm_container_registry.acr.login_server
+  description = "Login server for the container registry"
+}
+
 # output "host" {
 #   value = azurerm_kubernetes_cluster.default.kube_config.0.host
 # }
