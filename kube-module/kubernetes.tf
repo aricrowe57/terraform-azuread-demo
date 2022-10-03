@@ -155,3 +155,17 @@ resource "google_compute_managed_ssl_certificate" "managed-cert" {
   }
 }
 
+resource "kubernetes_service_account" "kube-service-account" {
+  metadata {
+    name      = "kube-service-account"
+    namespace = "sa-namspace"
+
+    labels = {
+      "azure.workload.identity/use" = "true"
+    }
+
+    annotations = {
+      "azure.workload.identity/client-id" = azuread_application.app-registration.application_id
+    }
+  }
+}

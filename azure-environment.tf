@@ -30,39 +30,33 @@ resource "azurerm_role_assignment" "owners_to_resource_group" {
   scope                            = azurerm_resource_group.default.id
 }
 
-resource "azuread_conditional_access_policy" "require-mfa-for-owners" {
-  display_name = "Require MFA for environment owners"
-  state        = "enabled"
-
-  conditions {
-    client_app_types    = ["all"]
-
-    applications {
-      included_applications = ["All"]
-    }
-
-    devices {
-      filter {
-        mode = "exclude"
-        rule = "device.operatingSystem eq \"Doors\""
-      }
-    }
-
-    locations {
-      included_locations = ["All"]
-    }
-
-    platforms {
-      included_platforms = ["all"]
-    }
-
-    users {
-      included_groups = [azuread_group.environment_owners.object_id]
-    }
-  }
-
-  grant_controls {
-    operator          = "OR"
-    built_in_controls = ["mfa"]
-  }
-}
+# Have to figure out why I keep getting access errors
+#resource "azuread_conditional_access_policy" "require-mfa-for-owners" {
+#  display_name = "Require MFA for environment owners"
+#  state        = "enabled"
+#  conditions {
+#    client_app_types    = ["all"]
+#    applications {
+#      included_applications = ["All"]
+#    }
+#    devices {
+#      filter {
+#        mode = "exclude"
+#        rule = "device.operatingSystem eq \"Doors\""
+#      }
+#    }
+#    locations {
+#      included_locations = ["All"]
+#    }
+#    platforms {
+#      included_platforms = ["all"]
+#    }
+#    users {
+#      included_groups = [azuread_group.environment_owners.object_id]
+#    }
+#  }
+#  grant_controls {
+#    operator          = "OR"
+#    built_in_controls = ["mfa"]
+#  }
+#}

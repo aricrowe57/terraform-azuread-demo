@@ -46,6 +46,16 @@ resource "azuread_application_password" "client-secret" {
 
 }
 
+resource "azuread_application_federated_identity_credential" "fic" {
+  application_object_id = azuread_application.app-registration.object_id
+  display_name          = "kube-fic"
+  description           = "FIC for Kubernetes on GKE"
+  audiences             = ["api://AzureADTokenExchange"]
+  issuer                = "https://container.googleapis.com/v1/projects/hashiconf-demo-364100/locations/us-west1/clusters/hashiconf-demo-364100-gke
+  #issuer                = "https://container.googleapis.com/v1/projects/${var.project_id}/locations/${var.region}/clusters/hashiconf-demo-364100-gke"
+  subject               = "system:serviceaccount:${kubernetes-service-account.kube-service-account.namespace}:${kubernetes-service-account.kube-service-account.name}"
+}
+
 #data "azuread_group" "dev-group" {
 #  name     = data.terraform_remote_state.state.outputs.kubernetes_cluster_name
 #  location = data.terraform_remote_state.state.outputs.region
