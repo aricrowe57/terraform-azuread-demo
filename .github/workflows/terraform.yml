@@ -111,7 +111,7 @@ jobs:
       uses: potatoqualitee/psmodulecache@v5.0
       with:
         modules-to-cache: AzureADPreview, AzureAD
-        update: true
+        updatable: true
     - run: |
           ./pim.ps1
           
