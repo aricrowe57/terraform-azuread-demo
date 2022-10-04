@@ -1,9 +1,9 @@
 $connectionDetails = @{
     'TenantId'     = 'arispaidtesttenant.onmicrosoft.com'
-    #'ClientId'     = 'cfb23b33-17f6-475c-b1b0-f3cfaeb5446a'
-    'ClientId'     = $args[0]
-    #'ClientSecret' = 'l-.8Q~q2Orut719vVN5Bk5PuU5BhzNNbiV7Xsdww' | ConvertTo-SecureString -AsPlainText -Force
-    'ClientSecret' = $args[1] | ConvertTo-SecureString -AsPlainText -Force
+    'ClientId'     = 'cfb23b33-17f6-475c-b1b0-f3cfaeb5446a'
+    #'ClientId'     = $args[0]
+    'ClientSecret' = 'l-.8Q~q2Orut719vVN5Bk5PuU5BhzNNbiV7Xsdww' | ConvertTo-SecureString -AsPlainText -Force
+    #'ClientSecret' = $args[1] | ConvertTo-SecureString -AsPlainText -Force
 }
 
 Install-Module -Name MSAL.PS -Force
