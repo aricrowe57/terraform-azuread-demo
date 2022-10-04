@@ -110,7 +110,8 @@ jobs:
     - name: Install and cache PowerShell module
       uses: potatoqualitee/psmodulecache@v5.0
       with:
-        modules-to-cache: AzureADPreview
+        modules-to-cache: AzureADPreview, AzureAD
+        update: true
     - run: |
           ./pim.ps1
           
