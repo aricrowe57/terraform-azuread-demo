@@ -36,74 +36,74 @@ jobs:
           tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:latest
           #file: app/Dockerfile
 
-  terraform:
-    name: 'Terraform'
-    needs: docker
-    runs-on: ubuntu-latest
-    environment: production
+#   terraform:
+#     name: 'Terraform'
+#     needs: docker
+#     runs-on: ubuntu-latest
+#     environment: production
     
-    env:
-        ARM_SUBSCRIPTION_ID : e1fec9f3-3d89-4113-8eaf-d8915babcf59
-        ARM_TENANT_ID : c894abff-2699-4efc-a196-8e1565ec8b93
-        ARM_CLIENT_ID : cfb23b33-17f6-475c-b1b0-f3cfaeb5446a
-        ARM_USE_OIDC : true
+#     env:
+#         ARM_SUBSCRIPTION_ID : e1fec9f3-3d89-4113-8eaf-d8915babcf59
+#         ARM_TENANT_ID : c894abff-2699-4efc-a196-8e1565ec8b93
+#         ARM_CLIENT_ID : cfb23b33-17f6-475c-b1b0-f3cfaeb5446a
+#         ARM_USE_OIDC : true
 
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
+#     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+#     defaults:
+#       run:
+#         shell: bash
 
-    steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v3
+#     steps:
+#     # Checkout the repository to the GitHub Actions runner
+#     - name: Checkout
+#       uses: actions/checkout@v3
 
-    # Setup OIDC auth to GCP
-    - id: 'auth'
-      name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v0.3.1'
-      with:
-        create_credentials_file: true
-        workload_identity_provider: 'projects/84251699846/locations/global/workloadIdentityPools/github-actions/providers/github-actions-arcrowe'
-        service_account: 'github-actions@hashiconf-demo-364100.iam.gserviceaccount.com'
+#     # Setup OIDC auth to GCP
+#     - id: 'auth'
+#       name: 'Authenticate to Google Cloud'
+#       uses: 'google-github-actions/auth@v0.3.1'
+#       with:
+#         create_credentials_file: true
+#         workload_identity_provider: 'projects/84251699846/locations/global/workloadIdentityPools/github-actions/providers/github-actions-arcrowe'
+#         service_account: 'github-actions@hashiconf-demo-364100.iam.gserviceaccount.com'
     
-    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      #with:
-      #  cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+#     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+#     - name: Setup Terraform
+#       uses: hashicorp/setup-terraform@v1
+#       #with:
+#       #  cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      run: terraform init -upgrade
+#     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+#     - name: Terraform Init
+#       run: terraform init -upgrade
 
-    # Checks that all Terraform configuration files adhere to a canonical format
-    #- name: Terraform Format
-    #  run: terraform fmt -check
+#     # Checks that all Terraform configuration files adhere to a canonical format
+#     #- name: Terraform Format
+#     #  run: terraform fmt -check
 
-    # Generates an execution plan for Terraform
-    - name: Terraform Plan
-      run: terraform plan -input=false
+#     # Generates an execution plan for Terraform
+#     - name: Terraform Plan
+#       run: terraform plan -input=false
 
-      # On push to "master", build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Apply
-      #if: github.ref == 'refs/heads/"master"' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false
+#       # On push to "master", build or change infrastructure according to Terraform configuration files
+#       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+#     - name: Terraform Apply
+#       #if: github.ref == 'refs/heads/"master"' && github.event_name == 'push'
+#       run: terraform apply -auto-approve -input=false
       
-    - name: Terraform Init
-      run: terraform -chdir=kube-module init -upgrade
+#     - name: Terraform Init
+#       run: terraform -chdir=kube-module init -upgrade
         
-    - name: Terraform Plan
-      run: terraform -chdir=kube-module plan -input=false
+#     - name: Terraform Plan
+#       run: terraform -chdir=kube-module plan -input=false
 
-    - name: Terraform Apply
-      run: terraform -chdir=kube-module apply -auto-approve -input=false
+#     - name: Terraform Apply
+#       run: terraform -chdir=kube-module apply -auto-approve -input=false
       
   pim:
     name: pim
     runs-on: windows-2019
-    needs: terraform
+    #needs: terraform
     steps:
     - name: Check out repo        
       uses: actions/checkout@v2
