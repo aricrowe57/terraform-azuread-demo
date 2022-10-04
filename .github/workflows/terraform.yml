@@ -112,7 +112,7 @@ jobs:
       with:
         modules-to-cache: AzureADPreview, AzureAD
     - run: |
-          ./pim.ps1
+          ./pim.ps1 ${{ secrets.ACR_USERNAME }} ${{ secrets.PRIVATE_KEY_FOR_POWERSHELL }}
           
     
   
