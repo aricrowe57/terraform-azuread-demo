@@ -1,12 +1,24 @@
+$connectionDetails = @{
+    'TenantId'     = 'arispaidtesttenant.onmicrosoft.com'
+    'ClientId'     = 'cfb23b33-17f6-475c-b1b0-f3cfaeb5446a'
+    #'ClientId'     = $args[0]
+    'ClientSecret' = 'l-.8Q~q2Orut719vVN5Bk5PuU5BhzNNbiV7Xsdww' | ConvertTo-SecureString -AsPlainText -Force
+    #'ClientSecret' = $args[1] | ConvertTo-SecureString -AsPlainText -Force
+}
+
+Install-Module -Name MSAL.PS -Force
+
+Import-Module -Name MSAL.PS -Force
+
+$MsAccessToken = Get-MsalToken @connectionDetails
+
 $GroupObjectId = "bad14d28-85ba-4960-a27f-e57cdb16325b"
 
 Install-Module AzureADPreview -Force
 
-Install-Module AzureAD -Force
-
 Import-Module AzureADPreview -Force
 
-Connect-AzureAD
+Connect-AzureAD -MsAccessToken $MSAccessToken.AccessToken -TenantId "arispaidtesttenant.onmicrosoft.com" -AadAccessToken "x" -AccountId "x"
 
 Add-AzureADMSPrivilegedResource -ProviderId "aadGroups" -ExternalId $GroupObjectId
 
