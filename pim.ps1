@@ -4,7 +4,7 @@ Install-Module AzureADPreview -Force
 
 Install-Module AzureAD -Force
 
-#Connect-AzureAD
+Connect-AzureAD
 
 Add-AzureADMSPrivilegedResource -ProviderId "aadGroups" -ExternalId $GroupObjectId
 
