@@ -2,7 +2,7 @@ $GroupObjectId = "bad14d28-85ba-4960-a27f-e57cdb16325b"
 $UserObjectId = "5c102dd0-6f07-475e-9ab9-b58034e46631" 
 $RoleDefinitionId = "d4ddc0e6-3bc9-4a1c-9da3-6e880e1a9a76"
 
-Import-Module AzureADPreview -Force
+Install-Module AzureADPreview -Force
 
 Connect-AzureAD
 
