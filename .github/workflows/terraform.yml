@@ -105,9 +105,15 @@ jobs:
     runs-on: windows-2019
     #needs: terraform
     steps:
-    - name: Check out repo        
-      uses: actions/checkout@v2
-    - run: |
-          ./pim.ps1
+    #- name: Check out repo        
+    #  uses: actions/checkout@v2
+    #- run: |
+    #      ./pim.ps1
+          
+     - name: Azure PowerShell Action
+       uses: Azure/powershell@v1
+       with:
+       # Specify the Az PowerShell script here.
+          inlineScript: ./pim.ps1
     
   
