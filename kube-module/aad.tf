@@ -53,7 +53,8 @@ resource "azuread_application_federated_identity_credential" "fic" {
   audiences             = ["api://AzureADTokenExchange"]
   issuer                = "https://container.googleapis.com/v1/projects/hashiconf-demo-364100/locations/us-west1/clusters/hashiconf-demo-364100-gke"
   #issuer                = "https://container.googleapis.com/v1/projects/${var.project_id}/locations/${var.region}/clusters/hashiconf-demo-364100-gke"
-  subject               = "system:serviceaccount:${kubernetes-service-account.kube-service-account.namespace}:${kubernetes-service-account.kube-service-account.name}"
+  #subject               = "system:serviceaccount:${kubernetes-service-account.kube-service-account.metadata.namespace}:${kubernetes-service-account.kube-service-account.metadata.name}"
+  subject               = "system:serviceaccount:sa-namspace:kube-service-account"
 }
 
 #data "azuread_group" "dev-group" {
