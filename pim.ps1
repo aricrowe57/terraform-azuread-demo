@@ -1,24 +1,10 @@
-# $connectionDetails = @{
-#     'TenantId'     = 'arispaidtesttenant.onmicrosoft.com'
-#     'ClientId'     = 'ae59357b-ec2e-43ac-9743-f2342668e3c3'
-#     #'ClientId'     = $args[0]
-#     'ClientSecret' = '4_98Q~zUbH-~BGt-6ml9TUVzZOHBrFatUTdkGdkZ' | ConvertTo-SecureString -AsPlainText -Force
-#     #'ClientSecret' = $args[1] | ConvertTo-SecureString -AsPlainText -Force
-# }
+#$GroupObjectId = "bad14d28-85ba-4960-a27f-e57cdb16325b"
 
-#Install-Module -Name MSAL.PS -Force
-
-#Import-Module -Name MSAL.PS -Force
-
-# $MsAccessToken = Get-MsalToken @connectionDetails
-
-$GroupObjectId = "bad14d28-85ba-4960-a27f-e57cdb16325b"
+$GroupObjectId = $args[2]
 
 Install-Module AzureADPreview -Force
 
 Import-Module AzureADPreview -Force
-
-#Connect-AzureAD -MsAccessToken $MSAccessToken.AccessToken -TenantId "arispaidtesttenant.onmicrosoft.com" -AadAccessToken "x" -AccountId "x"
 
 $password = ConvertTo-SecureString $args[1] -AsPlainText -Force
 
