@@ -8,8 +8,15 @@ resource "google_container_cluster" "default" {
   subnetwork = google_compute_subnetwork.subnet.name
 }
 
-resource "google_project_iam_member" "project" {
-  project = var.project_id
-  role    = "roles/owner"
-  member  = "group:hashiConfDemoOpsTeam@hashiconf-entra-demo.app"  ##Note: This needs to be replaced to reference the display name of the group created in AAD
+resource "google_compute_network" "vpc" {
+  name                    = "${var.project_id}-vpc"
+  auto_create_subnetworks = "false"
+}
+
+# Subnet
+resource "google_compute_subnetwork" "subnet" {
+  name          = "${var.project_id}-subnet"
+  region        = var.region
+  network       = google_compute_network.vpc.name
+  ip_cidr_range = "10.10.0.0/24"
 }

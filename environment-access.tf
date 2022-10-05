@@ -25,6 +25,7 @@ resource "google_project_iam_member" "owners_to_project" {
 
 
 
+
 # Have to figure out why I keep getting access errors
 #resource "azuread_conditional_access_policy" "require-mfa-for-owners" {
 #  display_name = "Require MFA for environment owners"
