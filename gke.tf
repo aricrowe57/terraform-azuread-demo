@@ -13,7 +13,6 @@ resource "google_compute_network" "vpc" {
   auto_create_subnetworks = "false"
 }
 
-# Subnet
 resource "google_compute_subnetwork" "subnet" {
   name          = "${var.project_id}-subnet"
   region        = var.region

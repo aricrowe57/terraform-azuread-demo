@@ -24,7 +24,6 @@ resource "kubernetes_deployment" "helloapp" {
         container {
           name  = "helloapp"
           image = "${data.terraform_remote_state.state.outputs.login_server}/helloapp:latest"
-          #image = "arcroweterraformaaddemoregistry.azurecr.io/helloapp:latest"
 
           port {
             container_port = 8080
@@ -45,17 +44,9 @@ resource "kubernetes_deployment" "helloapp" {
             value = "${azuread_application_password.client-secret.value}"
           }
         }
-
-        #node_selector = {
-        #  "beta.kubernetes.io/os" = "linux"
-        #}
       }
     }
   }
-
-  #depends_on = [
-  #  null_resource.push
-  #]
 }
 
 resource "kubernetes_service" "helloapp" {
@@ -91,7 +82,6 @@ resource "kubernetes_ingress_v1" "managed_cert_ingress" {
 
       "kubernetes.io/ingress.global-static-ip-name" = "hashiconf-app-address"
 
-      #"networking.gke.io/managed-certificates" = "managed-cert"
       "ingress.gcp.kubernetes.io/pre-shared-cert"   = google_compute_managed_ssl_certificate.managed-cert.name
     }
   }

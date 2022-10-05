@@ -1,3 +1,31 @@
+# Create managed identities, service principals, machine identities in Azure AD
+# resource "azuread_service_principal" "service-principal" {}
+
+# Set up workload identity federation in Google Cloud
+# resource "google_workload_identity_pool" {}
+# resource "google_workload_identity_provider" {}
+# resource "google_iam_policy_binding" {}
+
+# Set up workload identity federation from Kubernetes cluster to Azure AD
+# resource "azuread_application_federated_identity_credential" "fic" {
+#  application_object_id = azuread_application.app-registration.object_id
+#  display_name          = "kube-fic"
+#  description           = "FIC for Kubernetes on GKE"
+#  audiences             = ["api://AzureADTokenExchange"]
+#  issuer                = "https://container.googleapis.com/v1/projects/hashiconf-demo-364100/locations/us-west1/clusters/hashiconf-demo-364100-gke"
+#  subject               = "system:serviceaccount:sa-namspace:kube-service-account"
+#}
+
+# Create Azure RBAC role assignment to access resources in Azure
+# resource "azurerm_role_assignment" "access_to_datastore" {
+#   principal_id                     = service_principal.object_id
+#   role_definition_name             = "Blob storage data reader"
+#   scope                            = azurerm_resource_group.default.id
+# }
+
+# Create permission grants to Microsoft Graph
+# resource "azuread_app_role_assignment" "graph_permissions" {}
+
 resource "azuread_application" "app-registration" {
   display_name     = "Hashiconf Entra Demo"
   web {
@@ -41,23 +69,29 @@ resource "azuread_app_role_assignment" "example" {
   resource_object_id  = azuread_service_principal.service-principal.object_id
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 resource "azuread_application_password" "client-secret" {
   application_object_id = azuread_application.app-registration.object_id
 
 }
 
-#resource "azuread_application_federated_identity_credential" "fic" {
-#  application_object_id = azuread_application.app-registration.object_id
-#  display_name          = "kube-fic"
-#  description           = "FIC for Kubernetes on GKE"
-#  audiences             = ["api://AzureADTokenExchange"]
-#  issuer                = "https://container.googleapis.com/v1/projects/hashiconf-demo-364100/locations/us-west1/clusters/hashiconf-demo-364100-gke"
-  #issuer                = "https://container.googleapis.com/v1/projects/${var.project_id}/locations/${var.region}/clusters/hashiconf-demo-364100-gke"
-  #subject               = "system:serviceaccount:${kubernetes-service-account.kube-service-account.metadata.namespace}:${kubernetes-service-account.kube-service-account.metadata.name}"
-#  subject               = "system:serviceaccount:sa-namspace:kube-service-account"
-#}
 
-#data "azuread_group" "dev-group" {
-#  name     = data.terraform_remote_state.state.outputs.kubernetes_cluster_name
-#  location = data.terraform_remote_state.state.outputs.region 
-#}

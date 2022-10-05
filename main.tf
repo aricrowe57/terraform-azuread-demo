@@ -22,6 +22,8 @@ terraform {
 
 }
 
+# Set up workload identity federation from GitHub to Azure
+# Set up workload identity federation from GitHub to Google Cloud
 
 provider "azurerm" {
   subscription_id   = "e1fec9f3-3d89-4113-8eaf-d8915babcf59"
@@ -33,6 +35,9 @@ provider "azurerm" {
   features {}
 }
 
+# Create an Azure subscription
+# resource "azurerm_subscription" "default" {}
+
 resource "azurerm_resource_group" "default" {
   name     = "${var.demoPrefix}-rg"
   location = "East US"
@@ -41,6 +46,9 @@ resource "azurerm_resource_group" "default" {
     environment = "${var.environment}"
   }
 }
+
+# Create a Google Cloud project
+# resource "google_project" {}
 
 provider "google" {
   project = "hashiconf-demo-364100"
