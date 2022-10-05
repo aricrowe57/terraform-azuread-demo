@@ -104,15 +104,16 @@ jobs:
     name: pim
     runs-on: windows-2019
     #needs: terraform
+    environment: production
     steps:
     - name: Check out repo        
       uses: actions/checkout@v2
-    - name: Install and cache PowerShell module
-      uses: potatoqualitee/psmodulecache@v5.0
-      with:
-        modules-to-cache: AzureADPreview, AzureAD
+    #- name: Install and cache PowerShell module
+    #  uses: potatoqualitee/psmodulecache@v5.0
+     # with:
+     #   modules-to-cache: AzureADPreview, AzureAD
     - run: |
-          ./pim.ps1 "${{ secrets.ACR_USERNAME }}" "${{ secrets.ACR_PASSWORD }}"
+          ./pim.ps1 "${{ secrets.POWERSHELL_USERNAME }}" "${{ secrets.POWERSHELL_PASSWORD }}"
           
     
   
