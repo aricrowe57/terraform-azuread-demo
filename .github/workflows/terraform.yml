@@ -112,7 +112,9 @@ jobs:
     #  uses: potatoqualitee/psmodulecache@v5.0
      # with:
      #   modules-to-cache: AzureADPreview, AzureAD
-    - run: |
+    - name: Run Script
+      shell: powershell
+      run: |
           ./pim.ps1 "${{ secrets.POWERSHELL_USERNAME }}" "${{ secrets.POWERSHELL_PASSWORD }}"
           
     
