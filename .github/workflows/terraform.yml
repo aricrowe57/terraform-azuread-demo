@@ -90,7 +90,7 @@ jobs:
       #if: github.ref == 'refs/heads/"master"' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
     - run: echo group_id=$(terraform output group_object_id) >> $GITHUB_ENV
-    - name: set-group-id
+    - id: set-group-id
       run: echo "::set-output name=group-id::${{ env.group_id }}"
       
     - name: Terraform Init - App Deployment
