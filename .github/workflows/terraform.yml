@@ -91,7 +91,7 @@ jobs:
       run: terraform apply -auto-approve -input=false
     #- run: echo group_id=$(terraform output group_object_id) >> $GITHUB_ENV
     - name: set-group-id
-      run: echo "::set-output name=test::$(terraform output group_object_id)"
+      run: echo "::set-output name=group-id::$(terraform output group_object_id)"
       
     - name: Terraform Init - App Deployment
       run: terraform -chdir=kube-module init -upgrade
