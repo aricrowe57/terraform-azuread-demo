@@ -6,6 +6,18 @@ resource "azuread_group" "environment_owners" {
 
 }
 
+# resource "azuread_conditional_access_policy" "example" {
+#   display_name = "example policy"
+#     devices {
+#       filter {
+#         rule = "device.state eq \"Compliant\""
+#       }
+#     }
+#     groups {
+#       included_groups = [environment_owners.object_id]
+#     }
+# }
+
 # Set up workforce identity federation or user provisioning from Azure AD to GCP
 # resource "google_workforce_identity_pool" {}
 # resource "google_workforce_identity_provider" {}
